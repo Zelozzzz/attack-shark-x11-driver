@@ -120,6 +120,23 @@ export interface ProfileContents {
 	buttons: ButtonMappingBuilder;
 }
 
+/**
+ * The only reports the driver is allowed to write. Any write to report 0x10, whatever the payload, restarts the
+ * X11 into its bootloader and leaves it stuck there, so anything that isn't a known report is refused.
+ */
+const WRITABLE_REPORTS: ReadonlySet<number> = new Set([
+	ReportId.DPI,
+	ReportId.LIGHTING_SETTINGS,
+	ReportId.POLLING_RATE,
+	ReportId.WAKE_UP_MODE,
+	ReportId.BUTTON_MAPPING,
+	ReportId.MACRO,
+	ReportId.PROFILE,
+	ReportId.DEVICE_VERSION,
+	ReportId.PROFILE_SETTING,
+	ReportId.READ_REPORT_ID,
+]);
+
 /** Events emitted by the AttackSharkX11 class */
 export interface AttackSharkX11Events {
 	/** Emitted when the battery level changes */
